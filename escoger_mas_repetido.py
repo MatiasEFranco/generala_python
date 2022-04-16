@@ -12,9 +12,13 @@ def escoger_mas_repetido(lista_dados):
     #print("Cuál fue el número más repetido?", max_repeticiones)
 
 if __name__ == "__main__":
+
     lista_dados_1 = [5, 4, 3, 4, 1]
+
     print("Lista de dados analizar:", lista_dados_1)
+
     numero_mas_repetido_1 = escoger_mas_repetido(lista_dados_1)
+    
     print(numero_mas_repetido_1)
 
     lista_dados_2 = []

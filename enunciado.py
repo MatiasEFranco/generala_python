@@ -80,7 +80,43 @@ import random
 # Dentro de esta sección copiar y crear
 # todas las funciones que utilice
 
+def lista_aleatoria(cantidad):   
+    lista_aux = []      #se genera una lista axuliar para ir guardadno los valores generados aleatoreamente
+    
+    for i in range(cantidad):
 
+        lista_aux.append(random.randint(1,6))
+
+    return lista_aux    #retornamos la lista axuliar con los valores generados entre los limites indicados como "inicio" y "fin"
+
+
+'''def elegir_numero(numero, elegido):
+    num_elegido = None
+   
+    if (elegido == None):   #elegido toma el parametro del arguemnto numero_elegido que inicialmente esta como None
+      num_elegido = max(numero, key = numero.count)   #indica que numero se repitio mas veces y lo selecciono
+    
+    else:
+        for i in numero:    #en la segunda y tercer tirada el argumento de la variable elegido ya tiene un valor po lo tanto ingresa a este for para recorrer la lista
+            if i == elegido:
+                return i
+            
+
+    return num_elegido  #retorno el numero elegido'''
+
+
+def elegir_numero(numero, elegido):
+    num_elegido = max(numero, key = numero.count)   #indica que numero se repitio mas veces y lo selecciono
+    
+    return num_elegido  #retorno el numero elegido
+
+
+def  contar_numero(dados, numero):
+    cantidad_dados = dados.count(numero)  #indica cuantas veces se repitio el numero elegido
+
+    return cantidad_dados   #retorno cuantos dados guarde, que es igual ala cantidad de veces que se repite el numero elegido
+# --------------------------------
+ 
 # --------------------------------
 
 if __name__ == '__main__':
@@ -88,3 +124,39 @@ if __name__ == '__main__':
     # A partir de aquí escriba el código que
     # invoca a las funciones y resuelve el enunciado
     # Leer el enunciado con atención y consultar cualquier duda
+    
+    contador_generala = 0   #indicador de los dados que voy guardando en cada tirada
+    dados_tirados = []      #Aqui guardamos los valores en cada tirada
+    dados = 5               #indica la cantidad de dados a tirar
+    tirada = 0              #indica el numeor de la tirada
+    numero_elegido = None   #en esta variable guardo el numero elegido, inicialmente aparece como None
+    dados_guardados = 0     #aqui guardamos la cantidad de dados guardados
+    
+    while tirada < 3 and contador_generala != 5:   #aqui generamos las 3 tiradas con este bucle
+        tirada += 1 #aumento el numero de la tirada
+        dados_tirados = lista_aleatoria(dados)   #llamo a la funcion para generar la lista con los valores tirados por cada dado
+              
+        if tirada == 1:
+            numero_seleccionado = elegir_numero(dados_tirados, numero_elegido)  #llamo a la funcion para elegir el numero que mas veces se repite en la lista
+
+            if (numero_elegido == None) or (numero_elegido == numero_seleccionado): #aqui guardo el numero que mas veces se repitio en la tirada
+                numero_elegido = numero_seleccionado
+                contador_generala = contar_numero(dados_tirados,  numero_elegido)   #guardo el nuevp valor del contador generala sabiendo cuantos dados guarde
+                dados -= contador_generala  #descuento los dados guardados
+                dados_guardados += contador_generala    #cantidad de dados que voy guardando
+        else:
+            contador_generala = contar_numero(dados_tirados,  numero_elegido)   #guardo el nuevp valor del contador generala sabiendo cuantos dados guarde
+            dados -= contador_generala  #descuento los dados guardados
+            dados_guardados += contador_generala    #cantidad de dados que voy guardando
+
+        print("En la tirada", tirada, " los dados tirados fueron", dados_tirados)   #mostramos en que torada estamos y los valores que salieron en esa tirada
+        print("El numero elegido es", numero_elegido, " la cantidad de dados guardados es ", dados_guardados, "\n") #aqui indicamos el numero elegido y la cantidad de veces  que salio        
+        
+    if dados_guardados == 5:
+        print("Felicidades hiciste GENERALA con el numero", numero_elegido)
+
+    else:
+        print("Lo siento perdiste")  
+
+
+    print("fin")
